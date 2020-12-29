@@ -11,12 +11,17 @@ namespace Homework.ITAcademy5
 
         public void InitializingDimensions()
         {
-            Console.WriteLine("Enter the number of rows and columns : ");
+            Console.WriteLine("Enter the number of rows and columns : (not more than 1000)");
 
             try
             {
                 NumberOfRows = Convert.ToInt32(Console.ReadLine());
                 NumberOrColumns = Convert.ToInt32(Console.ReadLine());
+                if (NumberOfRows > 1000 || NumberOrColumns > 1000)
+                {
+                    Console.WriteLine("Too great a value. should be no more than 1000");
+                    Environment.Exit(0);
+                }
             }
             catch (Exception e)
             {
