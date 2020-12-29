@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Homework.ITAcademy5
 {
@@ -19,14 +20,14 @@ namespace Homework.ITAcademy5
             }
             else
             {
-                var thirdMatrix = new Matrix {TheMatrix = Multiply_matrix(firstMatrix, secondMatrix)};
+                var thirdMatrix = new Matrix {TheMatrix = MultiplyMatrix(firstMatrix, secondMatrix)};
 
                 Console.WriteLine("Result matrix");
                 thirdMatrix.Show();
             }
         }
 
-        public static int[,] Multiply_matrix(Matrix first, Matrix second)
+        public static int[,] MultiplyMatrix(Matrix first, Matrix second)
         {
             var resultMatrix = new int[first.NumberOfRows, second.NumberOrColumns];
 
