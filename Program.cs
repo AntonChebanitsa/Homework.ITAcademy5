@@ -6,10 +6,10 @@ namespace Homework.ITAcademy5
     {
         static void Main(string[] args)
         {
-            Matrix firstMatrix = new Matrix();
+            var firstMatrix = new Matrix();
             firstMatrix.InitializingDimensions();
 
-            Matrix secondMatrix = new Matrix();
+            var secondMatrix = new Matrix();
             secondMatrix.InitializingDimensions();
 
             if (firstMatrix.NumberOfRows != secondMatrix.NumberOrColumns)
@@ -19,8 +19,33 @@ namespace Homework.ITAcademy5
             }
             else
             {
+                var thirdMatrix = new Matrix {TheMatrix = Multiply_matrix(firstMatrix, secondMatrix)};
 
+                Console.WriteLine("Result matrix");
+                thirdMatrix.Show();
             }
+        }
+
+        public static int[,] Multiply_matrix(Matrix first, Matrix second)
+        {
+            var resultMatrix = new int[first.NumberOfRows, second.NumberOrColumns];
+
+            var commonLength = first.NumberOrColumns;
+
+            for (var i = 0; i < resultMatrix.GetLength(0); i++)
+            {
+                for (var j = 0; j < resultMatrix.GetLength(1); j++)
+                {
+                    var nextVal = 0;
+
+                    for (var k = 0; k < commonLength; k++)
+                    {
+                        nextVal += first.TheMatrix[i, k] * second.TheMatrix[k, j];
+                    }
+                    resultMatrix[i, j] = nextVal;
+                }
+            }
+            return resultMatrix;
         }
     }
 }
