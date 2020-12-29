@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Homework.ITAcademy5
 {
@@ -13,14 +14,14 @@ namespace Homework.ITAcademy5
             var secondMatrix = new Matrix();
             secondMatrix.InitializingDimensions();
 
-            if (firstMatrix.NumberOfRows != secondMatrix.NumberOrColumns)
+            if (firstMatrix.NumberOfRows != secondMatrix.NumberOrColumns || firstMatrix.NumberOrColumns != secondMatrix.NumberOfRows)
             {
                 Console.WriteLine("The number of rows in the first matrix is not equal to the number of columns in the second");
                 Environment.Exit(0);
             }
             else
             {
-                var thirdMatrix = new Matrix {TheMatrix = MultiplyMatrix(firstMatrix, secondMatrix)};
+                var thirdMatrix = new Matrix { TheMatrix = MultiplyMatrix(firstMatrix, secondMatrix) };
 
                 Console.WriteLine("Result matrix");
                 thirdMatrix.Show();
@@ -33,21 +34,23 @@ namespace Homework.ITAcademy5
 
             var commonLength = first.NumberOrColumns;
 
-            for (var i = 0; i < resultMatrix.GetLength(0); i++)
+            Parallel.For(0, resultMatrix.GetLength(0), (i) =>
             {
-                for (var j = 0; j < resultMatrix.GetLength(1); j++)
-                {
-                    var nextVal = 0;
+                Parallel.For(0, resultMatrix.GetLength(1), (j) =>
+                 {
+                     var nextVal = 0;
 
-                    for (var k = 0; k < commonLength; k++)
-                    {
-                        nextVal += first.TheMatrix[i, k] * second.TheMatrix[k, j];
-                    }
-                    resultMatrix[i, j] = nextVal;
-                }
-            }
+                     for (var k = 0; k < commonLength; k++)
+                     {
+                         nextVal += first.TheMatrix[i, k] * second.TheMatrix[k, j];
+                     }
+
+                     resultMatrix[i, j] = nextVal;
+                 });
+            });
             return resultMatrix;
         }
     }
 }
+
 
