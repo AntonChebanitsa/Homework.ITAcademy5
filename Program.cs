@@ -36,17 +36,17 @@ namespace Homework.ITAcademy5
 
             Parallel.For(0, resultMatrix.GetLength(0), (i) =>
             {
-                Parallel.For(0, resultMatrix.GetLength(1), (j) =>
-                 {
-                     var nextVal = 0;
+                for (var j = 0; j < resultMatrix.GetLength(1); j++)
+                {
+                    var nextVal = 0;
 
-                     for (var k = 0; k < commonLength; k++)
-                     {
-                         nextVal += first.TheMatrix[i, k] * second.TheMatrix[k, j];
-                     }
+                    for (var k = 0; k < commonLength; k++)
+                    {
+                        nextVal += first.TheMatrix[i, k] * second.TheMatrix[k, j];
+                    }
 
-                     resultMatrix[i, j] = nextVal;
-                 });
+                    resultMatrix[i, j] = nextVal;
+                }
             });
             return resultMatrix;
         }
